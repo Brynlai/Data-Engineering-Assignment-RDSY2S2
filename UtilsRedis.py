@@ -1,21 +1,24 @@
 """
-Author: Alia Tasnim Binti Baco
+@File    : UtilsRedis.py
+@Author  : Alia Tasnim binti Baco
+@Date    : 18/12/2024
 """
 
 import redis
 
+#class Redis_Update_Count:
 class Redis_Utilities:
     valid_tatabahasa = [
         "kata nama", "kata kerja", "kata adjektif", "kata sendi", "kata keterangan", "tidak diketahui",
         "kata singkatan", "kata nama khas", "kata sendi nama", "kata ganti nama diri", "kata nama jamak",
-        "kata ganti nama", "kata kerja pasif", "kata seru", "kata sifat", "kata ganti nama diri tunggal",
-        "singkatan", "kata ganti", "kata nama waktu", "kata tanya", "kata hubung", "kata tunjuk",
-        "kata keterangan masa"
+        "kata ganti nama", "kata kerja pasif", "kata seru", "kata sifat", "kata ganti nama diri tinggal",
+        "singkatan", "kata ganti", "kata nama waktu", "kata tanya", "kata hubung", "kata tunjuk", "kata keterangan masa"
     ]
 
     def __init__(self, host="localhost", port=6379, db=0):
         """
         Initialize the Redis connection.
+
         Args:
             host (str): Redis server host.
             port (int): Redis server port.
@@ -26,6 +29,7 @@ class Redis_Utilities:
     def update_tatabahasa_count(self, tatabahasa):
         """
         Increment the count of a specific tatabahasa type in Redis after validation.
+
         Args:
             tatabahasa (str): The grammatical category to increment.
         """
@@ -39,6 +43,7 @@ class Redis_Utilities:
     def update_sentiment_count(self, sentiment):
         """
         Increment the count of sentiment distribution (positive, neutral, negative) in Redis.
+
         Args:
             sentiment (float): Sentiment score to categorize and increment.
         """
@@ -53,6 +58,7 @@ class Redis_Utilities:
     def store_sentiment(self, word, sentiment):
         """
         Store or update the sentiment value for a specific word in Redis.
+
         Args:
             word (str): The word key to store the sentiment.
             sentiment (float): The sentiment score.
@@ -112,7 +118,7 @@ class Redis_Utilities:
         redis_key = f"sentiment:{word}"
         return self.redis_client.hgetall(redis_key)
         
-    def get_all_word_frequencies(self):
+    def get_word_frequencies(self):
         """
         Retrieve all word frequencies from Redis.
 
@@ -135,9 +141,12 @@ class Redis_Utilities:
         redis_key = "word:frequencies"
         frequency = self.redis_client.hget(redis_key, word)
         return int(frequency) if frequency else 0
-        
+    
     def close(self):
         """
         Close the Redis connection.
         """
         self.redis_client.close()
+
+
+
